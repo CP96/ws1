@@ -29,11 +29,7 @@ export default {
   methods: {
     getCategories() {
        axios
-        .get("http://localhost:3000/Categories", {
-          params: {
-            ID: 12345
-          }
-        })
+        .get("http://localhost:3000/Categories")
         .then(response => response.data)
         .then(response => {
           console.log(response);

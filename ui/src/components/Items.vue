@@ -15,7 +15,7 @@
           <td>{{index+1}}</td>
           <td>Image</td>
           <td>{{item.model}}</td>
-          <td>{{item.available}}</td>
+          <td>{{item.availability}}</td>
           <td>
             <button class="btn btn-danger" @click="onDelete(item)">Delete</button>
           </td>

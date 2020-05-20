@@ -21,74 +21,88 @@
     {
       "id": 1,
       "model": "K2 Press",
-      "avalible": true,
+      "availability": true,
       "catId": 1
     },
     {
       "id": 2,
       "model": "Nordica Enforcer",
-      "avalible": true,
+      "availability": true,
       "catId": 1
     },
     {
       "id": 3,
       "model": "Fischer Ranger",
-      "avalible": false,
+      "availability": false,
       "catId": 1
     },
     {
       "id": 4,
       "model": "Nitro Magnum",
-      "avalible": true,
+      "availability": true,
       "catId": 2
     },
     {
       "id": 5,
       "model": "Burton Costum X",
-      "avalible": true,
+      "availability": true,
       "catId": 2
     },
     {
       "id": 6,
       "model": "Arbor Formula",
-      "avalible": false,
+      "availability": false,
       "catId": 2
     },
     {
       "id": 7,
       "model": "Full Tilt Pro",
-      "avalible": true,
+      "availability": true,
       "catId": 3
     },
     {
       "id": 8,
       "model": "Tecnica Cochise",
-      "avalible": true,
+      "availability": true,
       "catId": 3
     },
     {
       "id": 9,
       "model": "Nordica  Speedmachine",
-      "avalible": false,
+      "availability": false,
       "catId": 3
     },
     {
       "id": 10,
       "model": "Nitro Sentinel",
-      "avalible": true,
+      "availability": true,
       "catId": 4
     },
     {
       "id": 11,
       "model": "K2 Thraxis",
-      "avalible": true,
+      "availability": true,
       "catId": 4
     },
     {
       "id": 12,
       "model": "Ride Fuse",
-      "avalible": false,
+      "availability": false,
       "catId": 4
+    },
+    {
+      "model": "dd",
+      "availability": true,
+      "image": "",
+      "catId": 1,
+      "id": 15
+    },
+    {
+      "model": "",
+      "availability": true,
+      "image": "",
+      "catId": 1,
+      "id": 16
     }
   ],
   "profile": {
