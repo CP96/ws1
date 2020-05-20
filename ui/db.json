@@ -1,16 +1,94 @@
 {
-  "posts": [
+  "Categories": [
     {
       "id": 1,
-      "title": "json-server",
-      "author": "typicode"
+      "title": "Skis"
+    },
+    {
+      "id": 2,
+      "title": "Snowboards"
+    },
+    {
+      "id": 3,
+      "title": "Skiboots"
+    },
+    {
+      "id": 4,
+      "title": "Boots"
     }
   ],
-  "comments": [
+  "Items": [
     {
       "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "model": "K2 Press",
+      "avalible": true,
+      "catId": 1
+    },
+    {
+      "id": 2,
+      "model": "Nordica Enforcer",
+      "avalible": true,
+      "catId": 1
+    },
+    {
+      "id": 3,
+      "model": "Fischer Ranger",
+      "avalible": false,
+      "catId": 1
+    },
+    {
+      "id": 4,
+      "model": "Nitro Magnum",
+      "avalible": true,
+      "catId": 2
+    },
+    {
+      "id": 5,
+      "model": "Burton Costum X",
+      "avalible": true,
+      "catId": 2
+    },
+    {
+      "id": 6,
+      "model": "Arbor Formula",
+      "avalible": false,
+      "catId": 2
+    },
+    {
+      "id": 7,
+      "model": "Full Tilt Pro",
+      "avalible": true,
+      "catId": 3
+    },
+    {
+      "id": 8,
+      "model": "Tecnica Cochise",
+      "avalible": true,
+      "catId": 3
+    },
+    {
+      "id": 9,
+      "model": "Nordica  Speedmachine",
+      "avalible": false,
+      "catId": 3
+    },
+    {
+      "id": 10,
+      "model": "Nitro Sentinel",
+      "avalible": true,
+      "catId": 4
+    },
+    {
+      "id": 11,
+      "model": "K2 Thraxis",
+      "avalible": true,
+      "catId": 4
+    },
+    {
+      "id": 12,
+      "model": "Ride Fuse",
+      "avalible": false,
+      "catId": 4
     }
   ],
   "profile": {

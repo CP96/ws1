@@ -1,33 +1,48 @@
 <template>
   <div class="home">
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <Categories @category-click="getItems" />
+    <Items v-if="items && items.length" :items="items" @on-delete="fetchItems" />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import axios from "axios";
-import HelloWorld from "@/components/HelloWorld.vue";
+import Categories from "@/components/Categories.vue";
+import Items from "@/components/Items.vue";
 
 export default {
   name: "Home",
   components: {
-    HelloWorld
+    Categories,
+    Items
   },
-  mounted() {
-    axios
-      .get("http://localhost:3000/posts", {
-        params: {
-          ID: 12345
-        }
-      })
-      .then(response=>response.data)
-      .then(function(response) {
-        console.log(response);
-      })
-      .catch(function(error) {
-        console.log(error);
-      })
+  data() {
+    return {
+      items: null
+    };
+  },
+  mounted() {},
+  methods: {
+    getItems(catId) {
+      axios
+        .get("http://localhost:3000/Items", {
+          params: {
+            catId: catId
+          }
+        })
+        .then(response => response.data)
+        .then(response => {
+          console.log(response);
+          this.items = response;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    fetchItems(catId){
+      this.getItems(catId)
+    }
   }
 };
 </script>
