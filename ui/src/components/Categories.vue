@@ -1,8 +1,13 @@
 <template>
   <div>
     <ul v-if="categories && categories.length" class="list-group">
-      <li v-for="cat in categories" v-bind:key="cat.id" class="list-group-item">
-        <span @click="onCategoryClick(cat.id)">{{cat.title}}</span>
+      <li
+        v-for="cat in categories"
+        v-bind:key="cat.id"
+        class="list-group-item"
+        :class="{'active':cat.id===activeCategoryId}"
+      >
+        <span @click="onCategoryClick(cat)">{{cat.title}}</span>
       </li>
     </ul>
     <div v-if="items && items.length">{{items}}</div>
@@ -20,7 +25,8 @@ export default {
   data() {
     return {
       categories: null,
-      items:  null
+      items: null,
+      activeCategoryId: null
     };
   },
   mounted() {
@@ -28,7 +34,7 @@ export default {
   },
   methods: {
     getCategories() {
-       axios
+      axios
         .get("http://localhost:3000/Categories")
         .then(response => response.data)
         .then(response => {
@@ -39,9 +45,9 @@ export default {
           console.log(error);
         });
     },
-    onCategoryClick (catId){
-      
-      this.$emit ("category-click",catId)
+    onCategoryClick(cat) {
+      this.activeCategoryId = cat.id;
+      this.$emit("category-click", cat.id);
     }
   }
 };

@@ -4,6 +4,12 @@
       <div class="form-group">
         <label for="model">Model</label>
         <input v-model="itemData.model" type="text" class="form-control" id="model" required />
+        <p v-if="validateModel" class="text-danger">This field is required</p>
+      </div>
+      <div class="form-group">
+        <label for="img">Image Link</label>
+        <input v-model="itemData.image" type="text" class="form-control" id="img" required />
+        <p v-if="validateImage" class="text-danger">This field is required</p>
       </div>
       <div class="form-group">
         <label for="availability">Availability</label>
@@ -19,6 +25,7 @@
       </div>
       <button type="submit" class="btn btn-primary" @click.prevent @mouseover="submitForm">Submit</button>
     </form>
+    <p v-if="success" class="text-success mt-3">Added successfuly</p>
   </div>
 </template>
 
@@ -34,12 +41,24 @@ export default {
         model: "",
         availability: true,
         image: ""
-      }
+      },
+      success: false,
+      isFormSubmited: false
     };
+  },
+  computed: {
+    validateModel() {
+      return this.isFormSubmited && !this.itemData.model;
+    },
+    validateImage() {
+      return this.isFormSubmited && !this.itemData.image;
+    }
   },
   methods: {
     submitForm() {
+      this.isFormSubmited = true;
       if (this.categoryId) {
+        if (!this.validateForm()) return false;
         console.log(this.itemData);
         this.itemData.catId = this.categoryId;
         axios
@@ -51,14 +70,22 @@ export default {
               availability: true,
               image: ""
             };
-            this.$emit("on-add",this.categoryId)
+            this.$emit("on-add", this.categoryId);
+            this.success = true;
+            setTimeout(() => {
+              this.success = false;
+            }, 2000);
           })
           .catch(error => {
             console.log(error);
-          });
+          })
+          .finally(() => (this.isFormSubmited = false));
       } else {
-        alert("PULA");
+        alert("Please select a category");
       }
+    },
+    validateForm() {
+      return this.itemData.model && this.itemData.image;
     }
   }
 };

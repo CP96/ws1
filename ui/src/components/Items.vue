@@ -13,7 +13,9 @@
       <tbody>
         <tr v-for="(item,index) in items" :key="item.id">
           <td>{{index+1}}</td>
-          <td>Image</td>
+          <td>
+            <img :src="item.image" class="img-thumbnail" />
+          </td>
           <td>{{item.model}}</td>
           <td>{{item.availability}}</td>
           <td>
