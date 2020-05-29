@@ -29,67 +29,78 @@
       "id": 2,
       "model": "Nordica Enforcer",
       "availability": true,
-      "catId": 1
+      "catId": 1,
+      "image":"http://localhost/ws1_assets/Nordica_Enforcer.jpg"
     },
     {
       "id": 3,
       "model": "Fischer Ranger",
       "availability": false,
-      "catId": 1
+      "catId": 1,
+      "image":"http://localhost/ws1_assets/fischer_ranger.jpg"
     },
     {
       "id": 4,
       "model": "Nitro Magnum",
       "availability": true,
-      "catId": 2
+      "catId": 2,
+      "image":"http://localhost/ws1_assets/Nitro_magnum.jpg"
     },
     {
       "id": 5,
       "model": "Burton Costum X",
       "availability": true,
-      "catId": 2
+      "catId": 2,
+      "image":"http://localhost/ws1_assets/burton_custom_x.jpg"
     },
     {
       "id": 6,
       "model": "Arbor Formula",
       "availability": false,
-      "catId": 2
+      "catId": 2,
+      "image":"http://localhost/ws1_assets/arbor-formula.jpg"
     },
     {
       "id": 7,
       "model": "Full Tilt Pro",
       "availability": true,
-      "catId": 3
+      "catId": 3,
+      "image":"http://localhost/ws1_assets/ft-pro.jpg"
     },
     {
       "id": 8,
       "model": "Tecnica Cochise",
       "availability": true,
-      "catId": 3
+      "catId": 3,
+      "image":"http://localhost/ws1_assets/tecnica-cochise-130.jpg"
     },
     {
       "id": 9,
       "model": "Nordica  Speedmachine",
       "availability": false,
-      "catId": 3
+      "catId": 3,
+      "image":"http://localhost/ws1_assets/nordica-speedmachine-130.jpg"
     },
     {
       "id": 10,
       "model": "Nitro Sentinel",
       "availability": true,
-      "catId": 4
+      "catId": 4,
+      "image":"http://localhost/ws1_assets/nitro-sentinel.jpg"
     },
     {
       "id": 11,
       "model": "K2 Thraxis",
       "availability": true,
-      "catId": 4
+      "catId": 4,
+      "image":"http://localhost/ws1_assets/K2_Thraxis.jpg"
     },
     {
       "id": 12,
       "model": "Ride Fuse",
       "availability": false,
-      "catId": 4
+      "catId": 4,
+      "image":"http://localhost/ws1_assets/ride-fuse.jpg"
     }
   ],
   "profile": {
