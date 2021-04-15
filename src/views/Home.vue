@@ -1,5 +1,8 @@
 <template>
   <div class="home">
+    <nav>
+      <button type="button" @click="logout">Log Out</button>
+      </nav>
     <div class="row mb-5">
       <div class="col-xs-12 col-md-6">
         <button class="btn btn-primary" @click="toggleCategories">{{categoriesBtnLabel}}</button>
@@ -20,11 +23,12 @@
 
 <script>
 // @ is an alias to /src
-import axios from "axios";
 import Categories from "@/components/Categories.vue";
 import Items from "@/components/Items.vue";
 import InputForm from "@/components/InputForm.vue";
 import Weather from "@/components/Weather.vue";
+import firebase from "firebase/app";
+import "firebase/auth";
 
 export default {
   name: "Home",
@@ -49,31 +53,12 @@ export default {
   },
   mounted() {},
   methods: {
-    getItems(catId) {
-      this.catId = catId;
-      axios
-        .get("http://localhost:3000/Items", {
-          params: {
-            catId: catId
-          }
-        })
-        .then(response => response.data)
-        .then(response => {
-          console.log(response);
-          this.items = response;
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    },
-    fetchItems(catId) {
-      this.getItems(catId);
-    },
-    toggleCategories() {
-      this.showCategories = !this.showCategories;
-      if (!this.showCategories) {
-        this.catId = null;
-      }
+    logout(){
+      firebase
+    .auth()
+    .signOut()
+    .then(() => console.log("signed out"))
+    .catch((error) => console.log(error));
     }
   }
 };
