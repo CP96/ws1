@@ -4,7 +4,7 @@ import router from './router'
 import firebase from "firebase/app";
 import "firebase/auth";
 import "./initApp.js";
-//mport db from "./data-provider";
+import db from "@/data-provider";
 
 Vue.config.productionTip = false
 
@@ -27,3 +27,19 @@ firebase.auth().onAuthStateChanged(
     console.log(error);
   }
 );
+
+var docRef = db.collection("skis").doc("HPmPzYBtvFs2uxXqZnE0");
+
+    docRef
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          console.log("Document data:", doc.data());
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+        }
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });

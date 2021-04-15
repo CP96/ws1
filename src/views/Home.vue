@@ -2,22 +2,36 @@
   <div class="home">
     <nav>
       <button type="button" @click="logout">Log Out</button>
-      </nav>
+    </nav>
     <div class="row mb-5">
       <div class="col-xs-12 col-md-6">
-        <button class="btn btn-primary" @click="toggleCategories">{{categoriesBtnLabel}}</button>
+        <button class="btn btn-primary" @click="toggleCategories">
+          {{ categoriesBtnLabel }}
+        </button>
       </div>
 
       <Weather class="col-xs-12 col-md-6" />
     </div>
     <section class="row mb-5">
-      <Categories v-if="showCategories" class="col-xs-12 col-md-6" @category-click="getItems" />
+      <Categories
+        v-if="showCategories"
+        class="col-xs-12 col-md-6"
+        @category-click="getItems"
+      />
       <div v-else class="col-xs-12 col-md-6"></div>
-      <InputForm class="col-xs-12 col-md-6" :category-id="catId" @on-add="fetchItems" />
+      <InputForm
+        class="col-xs-12 col-md-6"
+        :category-id="catId"
+        @on-add="fetchItems"
+      />
       <!-- <InputForm v-if="catId" class="col-xs-12 col-md-6" category-id="catId"  /> -->
     </section>
 
-    <Items v-if="items && items.length" :items="items" @on-delete="fetchItems" />
+    <Items
+      v-if="items && items.length"
+      :items="items"
+      @on-delete="fetchItems"
+    />
   </div>
 </template>
 
@@ -30,36 +44,39 @@ import Weather from "@/components/Weather.vue";
 import firebase from "firebase/app";
 import "firebase/auth";
 
+
 export default {
   name: "Home",
   components: {
     Categories,
     Items,
     InputForm,
-    Weather
+    Weather,
   },
   data() {
     return {
       items: null,
       catId: null,
       showCategories: false,
-      displayForm: false
+      displayForm: false,
     };
   },
   computed: {
     categoriesBtnLabel() {
       return this.showCategories ? "Hide Categories" : "Display Categories";
-    }
+    },
   },
-  mounted() {},
+  mounted() {
+    
+  },
   methods: {
-    logout(){
+    logout() {
       firebase
-    .auth()
-    .signOut()
-    .then(() => console.log("signed out"))
-    .catch((error) => console.log(error));
-    }
-  }
+        .auth()
+        .signOut()
+        .then(() => console.log("signed out"))
+        .catch((error) => console.log(error));
+    },
+  },
 };
 </script>
