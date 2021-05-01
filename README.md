@@ -1,5 +1,7 @@
 # ui
-
+```
+vue ui
+```
 ## Project setup
 ```
 npm install

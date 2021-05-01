@@ -1,23 +1,22 @@
 <template>
-  <div class="home">
-    <h1>Home</h1>
+  <div class="admin">
+    <h1>ADMIN</h1>
     <section class="content">
-      <Items :items="skis" :headers="['model', 'lenght', 'price']" />
-      <Items :items="snowboards" :headers="['model', 'lenght', 'price']" />
-      <Items :items="skiboots" :headers="['model', 'lenght', 'price']" />
-      <Items :items="boots" :headers="['model', 'lenght', 'price']" />
+      <Items :items="skis" :headers="['model', 'lenght', 'price', ]" :enableEdit="true" />
+      <Items :items="snowboards" :headers="['model', 'lenght', 'price']" :enableEdit="true" />
+      <Items :items="skiboots" :headers="['model', 'lenght', 'price']" :enableEdit="true" />
+      <Items :items="boots" :headers="['model', 'lenght', 'price']" :enableEdit="true" />
     </section>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
 import "@/initApp.js";
 import db from "@/data-provider";
 import Items from "@/components/Items.vue";
 
 export default {
-  name: "Home",
+  name: "Admin",
   components: {
     Items,
   },
@@ -62,3 +61,6 @@ export default {
   methods: {},
 };
 </script>
+
+<style>
+</style>

@@ -1,25 +1,19 @@
 <template>
   <div>
-    <table class="table">
+    <table class="pure-table pure-table-horizontal">
       <thead>
         <tr>
           <th scope="col">#</th>
-          <th scope="col">Image</th>
-          <th scope="col">Model</th>
-          <th scope="col">Availability</th>
-          <th scope="col">Actions</th>
+          <th scope="col" v-for="header in headers" :key="header">{{header.toUpperCase()}}</th>
+          <th scope="col" v-if="enableEdit">Actions</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(item,index) in items" :key="item.id">
           <td>{{index+1}}</td>
-          <td>
-            <img :src="item.image" class="img-fluid" style="width: auto;  max-height:200px;"/>
-          </td>
-          <td>{{item.model}}</td>
-          <td>{{item.availability}}</td>
-          <td>
-            <button class="btn btn-danger" @click="onDelete(item)">Delete</button>
+          <td v-for="columnName in headers" :key="columnName">{{item[columnName] || "NA"}}</td>
+          <td v-if="enableEdit">
+            <button class="button-error pure-button" type="button">DELETE</button>
           </td>
         </tr>
       </tbody>
@@ -32,8 +26,11 @@ import axios from "axios";
 export default {
   name: "Items",
   props: {
-    items: Array
+    items: Array,
+    headers: Array,
+    enableEdit: Boolean,
   },
+
   data() {
     return {};
   },
