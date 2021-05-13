@@ -28,7 +28,8 @@
 </template>
 
 <script>
-import db from '@/data-provider'
+import db from "@/data-provider";
+import firebase from "firebase/app";
 export default {
   name: "InsertItemForm",
   props: {
@@ -48,8 +49,10 @@ export default {
     onSubmit() {
       console.log(this.item);
 
+      this.item.createdAt = firebase.firestore.FieldValue.serverTimestamp();
+
       db.collection(this.collection)
-        .add({...this.item})
+        .add({ ...this.item })
         .then((docRef) => {
           console.log("Document written with ID: ", docRef.id);
         })

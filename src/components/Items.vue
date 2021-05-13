@@ -4,16 +4,26 @@
       <thead>
         <tr>
           <th scope="col">#</th>
-          <th scope="col" v-for="header in headers" :key="header">{{header.toUpperCase()}}</th>
+          <th scope="col" v-for="header in headers" :key="header">
+            {{ header.toUpperCase() }}
+          </th>
           <th scope="col" v-if="enableEdit">Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item,index) in items" :key="item.id">
-          <td>{{index+1}}</td>
-          <td v-for="columnName in headers" :key="columnName">{{item[columnName] || "NA"}}</td>
+        <tr v-for="(item, index) in items" :key="item.id">
+          <td>{{ index + 1 }}</td>
+          <td v-for="columnName in headers" :key="columnName">
+            {{ item[columnName] || "NA" }}
+          </td>
           <td v-if="enableEdit">
-            <button class="button-error pure-button" type="button">DELETE</button>
+            <button
+              class="button-error pure-button"
+              type="button"
+              v-on:click="onDelete(item)"
+            >
+              DELETE
+            </button>
           </td>
         </tr>
       </tbody>
@@ -22,26 +32,42 @@
 </template>
 
 <script>
-import axios from "axios";
+import db from "@/data-provider";
 export default {
   name: "Items",
   props: {
-    items: Array,
+    collection: String,
     headers: Array,
     enableEdit: Boolean,
+    orderBy: String,
   },
 
   data() {
-    return {};
+    return { items: [] };
   },
-  mounted() {},
-  methods: {
-    onDelete({ id, catId }) {
-      axios.delete("http://localhost:3000/Items/" + id).then(() => {
-        this.$emit("on-delete", catId);
+  mounted() {
+    db.collection(this.collection)
+      .orderBy(this.orderBy)
+      .onSnapshot((querySnapshot) => {
+        this.items = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
       });
-    }
-  }
+  },
+  methods: {
+    onDelete({ id }) {
+      db.collection(this.collection)
+        .doc(id)
+        .delete()
+        .then(() => {
+          console.log("Document successfully deleted!");
+        })
+        .catch((error) => {
+          console.error("Error removing document: ", error);
+        });
+    },
+  },
 };
 </script>
 

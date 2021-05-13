@@ -3,34 +3,33 @@
     <h2>Boots</h2>
 
     <Items
-      :items="boots"
-      :headers="['model', 'lenght', 'price']"
+      collection="BOOTS"
+      orderBy="createdAt"
+      :headers="['model', 'size', 'price']"
       :enableEdit="true"
+    />
+    <InsertItemForm
+      :fields="['model', 'size', 'price', 'available']"
+      collection="BOOTS"
     />
   </section>
 </template>
 
 <script>
 import "@/initApp.js";
-import db from "@/data-provider";
+
 import Items from "@/components/Items.vue";
+import InsertItemForm from "@/components/InsertItemForm.vue";
 export default {
   name: "Boots",
   components: {
     Items,
+    InsertItemForm,
   },
   data() {
-    return {
-      boots: [],
-    };
+    return {};
   },
-  mounted() {
-    db.collection("BOOTS")
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => this.boots.push(doc.data()));
-      });
-  },
+  mounted() {},
 };
 </script>
 
