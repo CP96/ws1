@@ -1,6 +1,7 @@
 
 <template >
   <div id="app">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/grids-responsive-min.css" />
     <Menu />
     <div id="main"><router-view /></div>
   </div>

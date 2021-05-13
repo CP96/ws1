@@ -1,31 +1,53 @@
 <template>
   <div class="admin">
     <h1>ADMIN</h1>
+    <nav>
+      <div class="pure-menu pure-menu-horizontal">
+        <ul class="pure-menu-list">
+          <li class="pure-menu-item">
+            <router-link
+              :to="{ name: 'Skis', params: {} }"
+              class="pure-menu-link"
+              >Skis</router-link
+            >
+          </li>
+          <li class="pure-menu-item">
+            <router-link
+              :to="{ name: 'Snowboards', params: {} }"
+              class="pure-menu-link"
+              >Snowboards</router-link
+            >
+          </li>
+          <li class="pure-menu-item">
+            <router-link
+              :to="{ name: 'SkiBoots', params: {} }"
+              class="pure-menu-link"
+              >SkiBoots</router-link
+            >
+          </li>
+          <li class="pure-menu-item">
+            <router-link
+              :to="{ name: 'Boots', params: {} }"
+              class="pure-menu-link"
+              >Boots</router-link
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
     <section class="content">
-      <Items :items="skis" :headers="['model', 'lenght', 'price', ]" :enableEdit="true" />
-      <Items :items="snowboards" :headers="['model', 'lenght', 'price']" :enableEdit="true" />
-      <Items :items="skiboots" :headers="['model', 'lenght', 'price']" :enableEdit="true" />
-      <Items :items="boots" :headers="['model', 'lenght', 'price']" :enableEdit="true" />
+      <router-view />
     </section>
   </div>
 </template>
 
 <script>
-import "@/initApp.js";
-import db from "@/data-provider";
-import Items from "@/components/Items.vue";
-
 export default {
   name: "Admin",
-  components: {
-    Items,
-  },
+  components: {},
   data() {
     return {
-      skis: [],
-      snowboards: [],
-      skiboots: [],
-      boots: [],
+      
     };
   },
   computed: {
@@ -33,34 +55,9 @@ export default {
       return this.showCategories ? "Hide Categories" : "Display Categories";
     },
   },
-  mounted() {
-    db.collection("SKIS")
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => this.skis.push(doc.data()));
-      });
-
-    db.collection("SNOWBOARDS")
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => this.snowboards.push(doc.data()));
-      });
-
-    db.collection("SKIBOOTS")
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => this.skiboots.push(doc.data()));
-      });
-
-    db.collection("BOOTS")
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => this.boots.push(doc.data()));
-      });
-  },
+  mounted() {},
   methods: {},
 };
 </script>
 
-<style>
-</style>
+<style></style>
