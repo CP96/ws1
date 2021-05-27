@@ -23,6 +23,7 @@
       <button type="submit" class="pure-button pure-button-primary">
         Submit
       </button>
+      <button type="reset" class="button-error pure-button" v-on:click.prevent="createDefaultItem" >Reset</button>
     </form>
   </section>
 </template>
@@ -35,15 +36,22 @@ export default {
   props: {
     fields: Array,
     collection: String,
+    editableItem: Object,
   },
   data() {
     return {
       item: {},
     };
   },
+  watch: {
+    editableItem(newItem) {
+      this.item = newItem;
+    },
+  },
+
   mounted() {
     console.log(this.fields);
-    this.fields.forEach((field) => (this.item[field] = ""));
+    this.createDefaultItem();
   },
   methods: {
     onSubmit() {
@@ -52,13 +60,19 @@ export default {
       this.item.createdAt = firebase.firestore.FieldValue.serverTimestamp();
 
       db.collection(this.collection)
-        .add({ ...this.item })
-        .then((docRef) => {
-          console.log("Document written with ID: ", docRef.id);
+        .doc(this.item?.id)
+        .set({ ...this.item })
+        .then(() => {
+          //console.log("Document written with ID: ", docRef.id);
         })
         .catch((error) => {
           console.error("Error adding document: ", error);
         });
+    },
+
+    createDefaultItem() {
+      this.item = {};
+      this.fields.forEach((field) => (this.item[field] = ""));
     },
   },
 };

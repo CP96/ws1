@@ -7,10 +7,12 @@
       orderBy="createdAt"
       :headers="['model', 'lenght', 'price', 'available']"
       :enableEdit="true"
+      v-on:edit="editItem"
     />
     <InsertItemForm
       :fields="['model', 'lenght', 'price', 'available']"
       collection="SNOWBOARDS"
+      :editable-item="editableItem"
     />
   </section>
 </template>
@@ -28,9 +30,17 @@ export default {
     InsertItemForm,
   },
   data() {
-    return {};
+    return {
+      editableItem: null,
+    };
   },
   mounted() {},
+
+  methods: {
+    editItem(item) {
+      this.editableItem = item;
+    },
+  },
 };
 </script>
 

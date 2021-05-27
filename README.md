@@ -30,4 +30,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
 ### Next to do:
-Update Items 
+users logs in and reserves items 
+update items ability as admin 
+redesign css & beautify

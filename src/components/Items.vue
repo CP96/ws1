@@ -24,6 +24,13 @@
             >
               DELETE
             </button>
+            <button
+              class="button-warning pure-button"
+              type="button"
+              v-on:click="onEdit(item)"
+            >
+              Edit
+            </button>
           </td>
         </tr>
       </tbody>
@@ -66,6 +73,10 @@ export default {
         .catch((error) => {
           console.error("Error removing document: ", error);
         });
+    },
+
+    onEdit(item) {
+      this.$emit("edit", item);
     },
   },
 };
