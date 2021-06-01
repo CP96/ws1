@@ -5,17 +5,26 @@
       <div class="pure-g">
         <div
           class="pure-u-1 pure-u-md-1-3"
-          v-for="property in fields"
-          :key="property"
+          v-for="field in fields"
+          :key="field.title"
         >
-          <label :for="property">
-            <span>{{ property }}</span>
+          <label :for="field.title">
+            <span>{{ field.title }}</span>
             <input
-              type="text"
-              :name="property"
-              :id="property"
+              v-if="field.type === 'number'"
+              :type="field.type"
+              :name="field.title"
+              :id="field.title"
               class="pure-u-23-24"
-              v-model="item[property]"
+              v-model.number="item[field.title]"
+            />
+            <input
+              v-else
+              :type="field.type"
+              :name="field.title"
+              :id="field.title"
+              class="pure-u-23-24"
+              v-model="item[field.title]"
             />
           </label>
         </div>
@@ -23,7 +32,13 @@
       <button type="submit" class="pure-button pure-button-primary">
         Submit
       </button>
-      <button type="reset" class="button-error pure-button" v-on:click.prevent="createDefaultItem" >Reset</button>
+      <button
+        type="reset"
+        class="button-error pure-button"
+        v-on:click.prevent="createDefaultItem"
+      >
+        Reset
+      </button>
     </form>
   </section>
 </template>
@@ -72,7 +87,9 @@ export default {
 
     createDefaultItem() {
       this.item = {};
-      this.fields.forEach((field) => (this.item[field] = ""));
+      this.fields.forEach(
+        (field) => (this.item[field.title] = isNaN(field.title) ? " " : 0)
+      );
     },
   },
 };

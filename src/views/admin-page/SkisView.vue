@@ -5,12 +5,18 @@
     <Items
       collection="SKIS"
       orderBy="createdAt"
-      :headers="['model', 'lenght', 'price', 'available']"
+      :headers="['model', 'lenght', 'price', 'available', 'count']"
       :enableEdit="true"
+      :enableDelete="true"
       v-on:edit="editItem"
     />
     <InsertItemForm
-      :fields="['model', 'lenght', 'price', 'available']"
+      :fields="[
+        { title: 'model', type: 'text' },
+        { title: 'lenght', type: 'number' },
+        { title: 'price', type: 'number' },
+        { title: 'count', type: 'number' },
+      ]"
       collection="SKIS"
       :editable-item="editableItem"
     />

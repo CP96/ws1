@@ -7,6 +7,7 @@ import SkisView from '@/views/admin-page/SkisView.vue'
 import SnowboardsView from '@/views/admin-page/SnowboardsView.vue'
 import SkiBootsView from '@/views/admin-page/SkiBootsView.vue'
 import BootsView from '@/views/admin-page/BootsView.vue'
+import Cart from '@/views/Cart.vue'
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,11 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/cart',
+    name: 'Cart',
+    component: Cart
   },
   {
     path: '/login',

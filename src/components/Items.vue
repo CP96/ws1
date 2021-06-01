@@ -7,7 +7,7 @@
           <th scope="col" v-for="header in headers" :key="header">
             {{ header.toUpperCase() }}
           </th>
-          <th scope="col" v-if="enableEdit">Actions</th>
+          <th scope="col">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -16,8 +16,17 @@
           <td v-for="columnName in headers" :key="columnName">
             {{ item[columnName] || "NA" }}
           </td>
-          <td v-if="enableEdit">
+          <td>
             <button
+              v-if="enableEdit"
+              class="button-warning pure-button"
+              type="button"
+              v-on:click="onEdit(item)"
+            >
+              Edit
+            </button>
+            <button
+              v-if="enableDelete"
               class="button-error pure-button"
               type="button"
               v-on:click="onDelete(item)"
@@ -25,11 +34,16 @@
               DELETE
             </button>
             <button
-              class="button-warning pure-button"
+              v-if="!enableEdit && showReserveBtn"
+              class="pure-button"
+              :class="{
+                'pure-button-disabled': !userIsLoggedIn || !item.count,
+                'button-secondary': userIsLoggedIn,
+              }"
               type="button"
-              v-on:click="onEdit(item)"
+              v-on:click="onReserve(item)"
             >
-              Edit
+              RESERVE
             </button>
           </td>
         </tr>
@@ -40,6 +54,8 @@
 
 <script>
 import db from "@/data-provider";
+import firebase from "firebase/app";
+
 export default {
   name: "Items",
   props: {
@@ -47,11 +63,28 @@ export default {
     headers: Array,
     enableEdit: Boolean,
     orderBy: String,
+    showReserveBtn: Boolean,
+    enableDelete: Boolean,
   },
 
   data() {
     return { items: [] };
   },
+
+  computed: {
+    userIsLoggedIn: function() {
+      const user = firebase.auth().currentUser;
+
+      return user ? true : false;
+    },
+
+    user: function() {
+      const user = firebase.auth().currentUser;
+
+      return user ? user : null;
+    },
+  },
+
   mounted() {
     db.collection(this.collection)
       .orderBy(this.orderBy)
@@ -62,6 +95,7 @@ export default {
         }));
       });
   },
+
   methods: {
     onDelete({ id }) {
       db.collection(this.collection)
@@ -77,6 +111,34 @@ export default {
 
     onEdit(item) {
       this.$emit("edit", item);
+    },
+
+    onReserve(item) {
+      const uid = this.user.uid;
+      const id = item.id;
+      const increment = firebase.firestore.FieldValue.increment(-1);
+
+      db.collection(this.collection)
+        .doc(id)
+        .update({ count: increment })
+        .then(() => {
+          console.log("Item successfully reserved!");
+        })
+        .catch((error) => {
+          console.error("Error updating item: ", error);
+        });
+
+      db.collection("CART")
+        .doc(uid)
+        .collection(this.collection)
+        .doc(item?.id)
+        .set({ ...item })
+        .then(() => {
+          console.log("Document written");
+        })
+        .catch((error) => {
+          console.error("Error adding document: ", error);
+        });
     },
   },
 };
