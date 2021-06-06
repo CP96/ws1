@@ -68,7 +68,7 @@ export default {
   },
 
   data() {
-    return { items: [] };
+    return { items: [], totalPrice: 0 };
   },
 
   computed: {
@@ -89,10 +89,12 @@ export default {
     db.collection(this.collection)
       .orderBy(this.orderBy)
       .onSnapshot((querySnapshot) => {
-        this.items = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+        this.items = querySnapshot.docs.map((doc) => {
+          const data = doc.data();
+          this.totalPrice += data.count * data.price;
+          return { id: doc.id, ...data };
+        });
+        this.$emit("totalPrice", this.totalPrice);
       });
   },
 

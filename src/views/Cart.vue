@@ -2,6 +2,7 @@
   <div class="cart">
     <h1>Cart</h1>
     <section class="content">
+     <h3>TOtal CArt : {{ this.cartTotalPrice }}</h3> 
       <h2>Skis</h2>
       <Items
         v-if="skisCart"
@@ -10,6 +11,7 @@
         :headers="['model', 'lenght', 'price', 'count']"
         :showReserveBtn="false"
         :enableDelete="true"
+        v-on:totalPrice="skiTotalPrice = $event"
       />
       <h2>Snowboards</h2>
       <Items
@@ -19,6 +21,7 @@
         :headers="['model', 'lenght', 'price', 'count']"
         :showReserveBtn="false"
         :enableDelete="true"
+        v-on:totalPrice="snowboardsTotalPrice = $event"
       />
       <h2>SkiBoots</h2>
       <Items
@@ -28,6 +31,7 @@
         :headers="['model', 'size', 'price', 'count']"
         :showReserveBtn="false"
         :enableDelete="true"
+        v-on:totalPrice="skibootsTotalPrice = $event"
       />
       <h2>Boots</h2>
       <Items
@@ -37,6 +41,7 @@
         :headers="['model', 'size', 'price', 'count']"
         :showReserveBtn="false"
         :enableDelete="true"
+        v-on:totalPrice="bootsTotalPrice = $event"
       />
     </section>
   </div>
@@ -52,12 +57,27 @@ export default {
     Items,
   },
 
+  computed: {
+    cartTotalPrice() {
+      return (
+        this.skiTotalPrice +
+        this.snowboardsTotalPrice +
+        this.bootsTotalPrice +
+        this.skibootsTotalPrice
+      );
+    },
+  },
+
   data() {
     return {
       skisCart: null,
       snowboardsCart: null,
       skiBootsCart: null,
       bootsCart: null,
+      skiTotalPrice: 0,
+      snowboardsTotalPrice: 0,
+      bootsTotalPrice: 0,
+      skibootsTotalPrice: 0,
     };
   },
   mounted() {
@@ -76,7 +96,12 @@ export default {
     );
   },
 
-  methods: {},
+  methods: {
+    // getTotalPrice(price, container) {
+    //   console.log(price);
+    //   container = price;
+    // },
+  },
 };
 </script>
 

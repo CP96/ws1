@@ -30,8 +30,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
 ### Next to do:
-cart updates -price, buy btn , on delete increment items count
+cart updates - buy btn , on delete increment items count
 update items avability as admin 
-fix cart item count 
-log out 
+fix cart item count , save only one count per item 
 redesign css & beautify
