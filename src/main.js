@@ -20,10 +20,11 @@ firebase.auth().onAuthStateChanged(
       console.log("user loged in");
     } else {
       console.log("user not loged in"); 
-      router.push({ path: 'login' });
+      
     }
   },
   function (error) {
     console.log(error);
   }
 );
+

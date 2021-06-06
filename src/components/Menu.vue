@@ -16,23 +16,56 @@
           <li class="pure-menu-item">
             <router-link class="pure-menu-link" to="/admin">Admin</router-link>
           </li>
-          <li class="pure-menu-item">
-            <router-link class="pure-menu-link" to="/login">Login</router-link>
-          </li>
 
           <!-- <li class="pure-menu-item menu-item-divided pure-menu-selected">
             <a href="#" class="pure-menu-link">Services</a>
           </li> -->
         </ul>
+        <router-link
+          tag="button"
+          class="pure-button button-secondary"
+          to="/login"
+          v-if="!userIsLoggedIn"
+          >Login</router-link
+        >
+        <button
+          class="button-warning pure-button"
+          type="button"
+          v-on:click="logout"
+          v-else
+        >
+          Log Out
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import firebase from "firebase/app";
+import "firebase/auth";
+import router from "@/router";
+
 export default {
+  data() {
+    return {
+      userIsLoggedIn: null,
+    };
+  },
+
   mounted() {
     document.addEventListener("click", this.handleEvent);
+
+    firebase.auth().onAuthStateChanged(
+      (user) => {
+        if (user) {
+          this.userIsLoggedIn = user;
+        }
+      },
+      function(error) {
+        console.log(error);
+      }
+    );
   },
 
   methods: {
@@ -82,14 +115,17 @@ export default {
         menuLink: document.getElementById("menuLink"),
       };
     },
-    /*
-      logout() {
+
+    logout() {
       firebase
         .auth()
         .signOut()
-        .then(() => console.log("signed out"))
+        .then(() => {
+          this.userIsLoggedIn = null;
+          router.go();
+        })
         .catch((error) => console.log(error));
-    },*/
+    },
   },
 };
 </script>
