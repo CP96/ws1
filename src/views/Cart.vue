@@ -7,6 +7,7 @@
       <Items
         v-if="skisCart"
         :collection="skisCart"
+        adminCollection="SKIS"
         orderBy="createdAt"
         :headers="['model', 'lenght', 'price', 'count']"
         :showReserveBtn="false"
@@ -17,6 +18,7 @@
       <Items
         v-if="snowboardsCart"
         :collection="snowboardsCart"
+        adminCollection="SNOWBOARDS"
         orderBy="createdAt"
         :headers="['model', 'lenght', 'price', 'count']"
         :showReserveBtn="false"
@@ -27,6 +29,7 @@
       <Items
         v-if="skiBootsCart"
         :collection="skiBootsCart"
+        adminCollection="SKIBOOTS"
         orderBy="createdAt"
         :headers="['model', 'size', 'price', 'count']"
         :showReserveBtn="false"
@@ -37,6 +40,7 @@
       <Items
         v-if="bootsCart"
         :collection="bootsCart"
+        adminCollection="BOOTS"
         orderBy="createdAt"
         :headers="['model', 'size', 'price', 'count']"
         :showReserveBtn="false"

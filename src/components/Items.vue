@@ -65,6 +65,7 @@ export default {
     orderBy: String,
     showReserveBtn: Boolean,
     enableDelete: Boolean,
+    adminCollection: String,
   },
 
   data() {
@@ -99,11 +100,22 @@ export default {
   },
 
   methods: {
-    onDelete({ id }) {
+    onDelete({ id , count}) {
       db.collection(this.collection)
         .doc(id)
         .delete()
         .then(() => {
+          if (this.adminCollection) {
+            console.log(count);
+            console.log(this.adminCollection);
+            console.log(id);
+            const increment = firebase.firestore.FieldValue.increment(parseInt(count));
+            db.collection(this.adminCollection)
+              .doc(id)
+              .update({ count: increment })
+              .then(() => console.log("Item incremented"))
+              .catch(() => console.log("Item not incremented !"));
+          }
           console.log("Document successfully deleted!");
         })
         .catch((error) => {
@@ -130,17 +142,46 @@ export default {
           console.error("Error updating item: ", error);
         });
 
-      db.collection("CART")
+      const docRef = db
+        .collection("CART")
         .doc(uid)
         .collection(this.collection)
-        .doc(item?.id)
-        .set({ ...item })
-        .then(() => {
-          console.log("Document written");
+        .doc(item?.id);
+
+      docRef
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            const increment = firebase.firestore.FieldValue.increment(1);
+            docRef.update({ count: increment });
+            console.log("Document data:", doc.data());
+          } else {
+            item.count = 1;
+            docRef
+              .set({ ...item })
+              .then(() => {
+                console.log("Document written");
+              })
+              .catch((error) => {
+                console.error("Error adding document: ", error);
+              });
+          }
         })
         .catch((error) => {
-          console.error("Error adding document: ", error);
+          console.log("Error getting document:", error);
         });
+
+      // db.collection("CART")
+      //   .doc(uid)
+      //   .collection(this.collection)
+      //   .doc(item?.id)
+      //   .set({ ...item })
+      //   .then(() => {
+      //     console.log("Document written");
+      //   })
+      //   .catch((error) => {
+      //     console.error("Error adding document: ", error);
+      //   });
     },
   },
 };
