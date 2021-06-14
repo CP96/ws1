@@ -30,6 +30,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
 ### Next to do:
-cart updates -buy btn 
+user persmisions - diference admin/user
+toaster info messages
+orders page- display orders
 
 redesign css & beautify

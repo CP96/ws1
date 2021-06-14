@@ -8,6 +8,7 @@ import SnowboardsView from '@/views/admin-page/SnowboardsView.vue'
 import SkiBootsView from '@/views/admin-page/SkiBootsView.vue'
 import BootsView from '@/views/admin-page/BootsView.vue'
 import Cart from '@/views/Cart.vue'
+import OrdersView from '@/views/admin-page/OrdersView.vue'
 
 Vue.use(VueRouter)
 
@@ -51,6 +52,11 @@ const routes = [
         path:'boots',
         name:'Boots',
         component: BootsView
+      },
+      {
+        path:'orders',
+        name:'Orders',
+        component: OrdersView
       }
     ],
   },

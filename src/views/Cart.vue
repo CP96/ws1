@@ -2,7 +2,7 @@
   <div class="cart">
     <h1>Cart</h1>
     <section class="content">
-     <h3>TOtal CArt : {{ this.cartTotalPrice }}</h3> 
+      <p>Total Cart : {{ this.cartTotalPrice }}</p>
       <h2>Skis</h2>
       <Items
         v-if="skisCart"
@@ -47,6 +47,14 @@
         :enableDelete="true"
         v-on:totalPrice="bootsTotalPrice = $event"
       />
+      <p>Total Cart : {{ this.cartTotalPrice }}</p>
+      <button
+        class="button-success pure-button"
+        type="button"
+        v-on:click="onOrder"
+      >
+        Order
+      </button>
     </section>
   </div>
 </template>
@@ -55,6 +63,7 @@
 import "@/initApp.js";
 import Items from "@/components/Items.vue";
 import firebase from "firebase/app";
+import db from "@/data-provider";
 export default {
   name: "Cart",
   components: {
@@ -82,6 +91,7 @@ export default {
       snowboardsTotalPrice: 0,
       bootsTotalPrice: 0,
       skibootsTotalPrice: 0,
+      user: null,
     };
   },
   mounted() {
@@ -92,6 +102,7 @@ export default {
           this.snowboardsCart = "CART/" + user.uid + "/SNOWBOARDS";
           this.skiBootsCart = "CART/" + user.uid + "/SKIBOOTS";
           this.bootsCart = "CART/" + user.uid + "/BOOTS";
+          this.user = user;
         }
       },
       (error) => {
@@ -101,10 +112,26 @@ export default {
   },
 
   methods: {
-    // getTotalPrice(price, container) {
-    //   console.log(price);
-    //   container = price;
-    // },
+    onOrder() {
+      console.log(this.user);
+      const order = {
+        skis: this.skisCart,
+        snowboards: this.snowboardsCart,
+        skiBoots: this.skiBootsCart,
+        boots: this.bootsCart,
+        orderDate:firebase.firestore.FieldValue.serverTimestamp(),
+      };
+      const uid = this.user.uid;
+      db.collection("ORDERS")
+        .doc(uid)
+        .set(order)
+        .then(() => {
+          console.log("Order Saved");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
 };
 </script>

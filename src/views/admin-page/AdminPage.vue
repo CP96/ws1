@@ -32,6 +32,13 @@
               >Boots</router-link
             >
           </li>
+          <li class="pure-menu-item">
+            <router-link
+              :to="{ name: 'Orders', params: {} }"
+              class="pure-menu-link"
+              >Orders</router-link
+            >
+          </li>
         </ul>
       </div>
     </nav>
