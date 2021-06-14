@@ -90,6 +90,7 @@ export default {
     db.collection(this.collection)
       .orderBy(this.orderBy)
       .onSnapshot((querySnapshot) => {
+        this.totalPrice = 0;
         this.items = querySnapshot.docs.map((doc) => {
           const data = doc.data();
           this.totalPrice += data.count * data.price;
@@ -100,16 +101,15 @@ export default {
   },
 
   methods: {
-    onDelete({ id , count}) {
+    onDelete({ id, count }) {
       db.collection(this.collection)
         .doc(id)
         .delete()
         .then(() => {
           if (this.adminCollection) {
-            console.log(count);
-            console.log(this.adminCollection);
-            console.log(id);
-            const increment = firebase.firestore.FieldValue.increment(parseInt(count));
+            const increment = firebase.firestore.FieldValue.increment(
+              parseInt(count)
+            );
             db.collection(this.adminCollection)
               .doc(id)
               .update({ count: increment })
