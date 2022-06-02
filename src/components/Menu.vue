@@ -13,7 +13,7 @@
           <li class="pure-menu-item">
             <router-link class="pure-menu-link" to="/cart">Cart</router-link>
           </li>
-          <li class="pure-menu-item">
+          <li class="pure-menu-item" v-if="userIsAdmin">
             <router-link class="pure-menu-link" to="/admin">Admin</router-link>
           </li>
 
@@ -42,6 +42,8 @@
 </template>
 
 <script>
+import "@/initApp.js";
+import db from "@/data-provider";
 import firebase from "firebase/app";
 import "firebase/auth";
 import router from "@/router";
@@ -50,6 +52,7 @@ export default {
   data() {
     return {
       userIsLoggedIn: null,
+      userIsAdmin: null,
     };
   },
 
@@ -60,6 +63,21 @@ export default {
       (user) => {
         if (user) {
           this.userIsLoggedIn = user;
+          db.collection("USERS")
+            .doc(user.uid)
+            .get()
+            .then((doc) => {
+              if (doc.exists) {
+                const data = doc.data();
+                this.userIsAdmin = data.isAdmin;
+              } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+              }
+            })
+            .catch((error) => {
+              console.log("Error getting document:", error);
+            });
         }
       },
       function(error) {
