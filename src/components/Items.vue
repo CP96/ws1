@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <table class="pure-table pure-table-horizontal">
+  <div class="">
+    <table class="items-table pure-table pure-table-horizontal">
       <thead>
         <tr>
           <th scope="col">#</th>
@@ -73,13 +73,13 @@ export default {
   },
 
   computed: {
-    userIsLoggedIn: function() {
+    userIsLoggedIn: function () {
       const user = firebase.auth().currentUser;
 
       return user ? true : false;
     },
 
-    user: function() {
+    user: function () {
       const user = firebase.auth().currentUser;
 
       return user ? user : null;
@@ -137,6 +137,7 @@ export default {
         .update({ count: increment })
         .then(() => {
           console.log("Item successfully reserved!");
+          this.$toasted.success('Item succesfully reserved!')
         })
         .catch((error) => {
           console.error("Error updating item: ", error);
@@ -202,5 +203,8 @@ li {
 }
 a {
   color: #42b983;
+}
+.items-table {
+  width: 100%;
 }
 </style>

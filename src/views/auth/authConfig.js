@@ -1,6 +1,7 @@
 import firebase from "firebase/app";
 import * as firebaseui from "firebaseui";
 
+
 function handleUIError(error) {
   console.error(error);
 }
@@ -9,6 +10,7 @@ export default {
   callbacks: {
     signInSuccessWithAuthResult: function (/* authResult */) {
       // var user = authResult.user;
+      
       return true;
     },
     signInFailure: function (error) {

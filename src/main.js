@@ -5,8 +5,15 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "purecss";
 import "@/main.scss";
+import Toasted from 'vue-toasted';
 
 Vue.config.productionTip = false
+
+const toastConfig = {
+  position: "bottom-right",
+  duration: 5000
+}
+Vue.use(Toasted,toastConfig)
 
 new Vue({
   router,

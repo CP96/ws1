@@ -30,6 +30,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
 ### Next to do:
-user persmisions - diference admin/user
 toaster info messages
 redesign css & beautify

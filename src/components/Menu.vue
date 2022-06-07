@@ -7,14 +7,16 @@
 
     <div id="menu">
       <div class="pure-menu">
-        <router-link class="pure-menu-heading" to="/">Ski SHOP</router-link>
+        <router-link class="menu-logo pure-menu-heading" to="/"
+          >Ski SHOP</router-link
+        >
 
         <ul class="pure-menu-list">
           <li class="pure-menu-item">
-            <router-link class="pure-menu-link" to="/cart">Cart</router-link>
+            <router-link class="pure-menu-link" to="/cart">CART</router-link>
           </li>
           <li class="pure-menu-item" v-if="userIsAdmin">
-            <router-link class="pure-menu-link" to="/admin">Admin</router-link>
+            <router-link class="pure-menu-link" to="/admin">ADMIN</router-link>
           </li>
 
           <!-- <li class="pure-menu-item menu-item-divided pure-menu-selected">
@@ -26,15 +28,15 @@
           class="pure-button button-secondary"
           to="/login"
           v-if="!userIsLoggedIn"
-          >Login</router-link
+          >LOGIN</router-link
         >
         <button
-          class="button-warning pure-button"
+          class="button-logout button-warning pure-button"
           type="button"
           v-on:click="logout"
           v-else
         >
-          Log Out
+          LOG OUT
         </button>
       </div>
     </div>
@@ -62,6 +64,7 @@ export default {
     firebase.auth().onAuthStateChanged(
       (user) => {
         if (user) {
+          this.$toasted.success('You are logged in!');
           this.userIsLoggedIn = user;
           db.collection("USERS")
             .doc(user.uid)
@@ -70,9 +73,13 @@ export default {
               if (doc.exists) {
                 const data = doc.data();
                 this.userIsAdmin = data.isAdmin;
+                if(this.userIsAdmin){
+                  this.$toasted.info('You are logged in as Admin!');
+                }
               } else {
                 // doc.data() will be undefined in this case
                 console.log("No such document!");
+               // this.$toasted.show('You are logged out!');
               }
             })
             .catch((error) => {
@@ -80,7 +87,7 @@ export default {
             });
         }
       },
-      function(error) {
+      function (error) {
         console.log(error);
       }
     );
@@ -141,6 +148,7 @@ export default {
         .then(() => {
           this.userIsLoggedIn = null;
           router.go();
+          
         })
         .catch((error) => console.log(error));
     },
@@ -243,9 +251,10 @@ appears on the left side of the page.
     All anchors inside the menu should be styled like this.
     */
 #menu a {
-  color: #999;
+  color: rgb(192, 189, 189);
   border: none;
-  padding: 0.6em 0 0.6em 0.6em;
+  padding: 1em 0;
+  letter-spacing: 1.5px;
 }
 
 /*
@@ -256,14 +265,11 @@ appears on the left side of the page.
   border: none;
   background: transparent;
 }
-
-/*
-    Add that light border to separate items into groups.
-    */
-#menu .pure-menu ul,
-#menu .pure-menu .menu-item-divided {
-  border-top: 1px solid #333;
+#menu .pure-menu ul{
+  margin-top: 25px;
 }
+
+
 /*
         Change color of the anchor links on hover/focus.
         */
@@ -275,24 +281,23 @@ appears on the left side of the page.
 /*
     This styles the selected menu item `<li>`.
     */
-#menu .pure-menu-selected,
-#menu .pure-menu-heading {
-  background: #1f8dd6;
-}
+/* #menu .pure-menu-selected {
+  background: #979797;
+} */
 /*
         This styles a link within a selected menu item `<li>`.
         */
-#menu .pure-menu-selected a {
-  color: #fff;
-}
+/*     */
 
 /*
     This styles the menu heading.
     */
 #menu .pure-menu-heading {
   font-size: 110%;
-  color: #fff;
+  color: #000 !important;
+  background: #fff !important;
   margin: 0;
+  padding: 20px 0;
 }
 
 /* -- Dynamic Button For Responsive Menu -------------------------------------*/
@@ -348,6 +353,10 @@ small screens.
 
 .menu-link span:after {
   margin-top: 0.6em;
+}
+
+.button-logout{
+  margin-top: 25px !important;
 }
 
 /* -- Responsive Styles (Media Queries) ------------------------------------- */
