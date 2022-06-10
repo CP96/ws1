@@ -7,7 +7,9 @@
           <th scope="col" v-for="header in headers" :key="header">
             {{ header.toUpperCase() }}
           </th>
-          <th scope="col">Actions</th>
+          <th scope="col" :colspan="enableEdit & enableDelete ? '3' : '1'">
+            Actions
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -16,25 +18,26 @@
           <td v-for="columnName in headers" :key="columnName">
             {{ item[columnName] || "NA" }}
           </td>
-          <td>
+          <td v-if="enableEdit">
             <button
-              v-if="enableEdit"
               class="button-warning pure-button"
               type="button"
               v-on:click="onEdit(item)"
             >
               Edit
             </button>
+          </td>
+          <td v-if="enableDelete">
             <button
-              v-if="enableDelete"
               class="button-error pure-button"
               type="button"
               v-on:click="onDelete(item)"
             >
               DELETE
             </button>
+          </td>
+          <td v-if="!enableEdit && showReserveBtn">
             <button
-              v-if="!enableEdit && showReserveBtn"
               class="pure-button"
               :class="{
                 'pure-button-disabled': !userIsLoggedIn || !item.count,
@@ -137,7 +140,7 @@ export default {
         .update({ count: increment })
         .then(() => {
           console.log("Item successfully reserved!");
-          this.$toasted.success('Item succesfully reserved!')
+          this.$toasted.success("Item succesfully reserved!");
         })
         .catch((error) => {
           console.error("Error updating item: ", error);
@@ -206,5 +209,13 @@ a {
 }
 .items-table {
   width: 100%;
+  background: linear-gradient(#add7f736, #9cb3f1ad);
+  box-shadow: #00000033 0px -6px 19px -7px;
+  
+}
+
+.pure-table thead{
+  background: #8fa6e5ad;
+  color:whitesmoke;
 }
 </style>

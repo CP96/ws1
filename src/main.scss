@@ -4,6 +4,11 @@ body {
   padding: 0;
   width: 100%;
 }
+html {
+  background: linear-gradient(#577d9b36, #8fa6e5ad);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
 .button-success,
 .button-error,
 .button-warning,
@@ -14,21 +19,21 @@ body {
 }
 
 .button-success {
-  background: rgb(28, 184, 65);
+  background: rgb(111, 199, 133);
   /* this is a green */
 }
 
 .button-error {
-  background: rgb(202, 60, 60);
+  background: rgb(230, 96, 96);
   /* this is a maroon */
 }
 
 .button-warning {
-  background: rgb(223, 117, 20);
+  background: rgb(235, 152, 74);
   /* this is an orange */
 }
 
 .button-secondary {
-  background: rgb(66, 184, 221);
+  background: rgb(76, 168, 196);
   /* this is a light blue */
 }
