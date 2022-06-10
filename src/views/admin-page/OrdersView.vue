@@ -5,11 +5,9 @@
       <thead>
         <tr>
           <th scope="col">#</th>
-          <th scope="col">
-            User
-          </th>
+          <th scope="col">User</th>
           <th scope="col">Order Date</th>
-          <th scope="col">Actions</th>
+          <th scope="col" colspan="2">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -25,6 +23,15 @@
                 v-on:click="displayDetails(item)"
               >
                 View Order
+              </button>
+            </td>
+            <td>
+              <button
+                type="button"
+                class="pure-button button-success btn-confirm"
+                v-on:click="confirmOrder(item)"
+              >
+                Confirm Order
               </button>
             </td>
           </tr>
@@ -72,7 +79,6 @@ export default {
             loading: true,
           };
         });
-        
       });
   },
   methods: {
@@ -97,11 +103,37 @@ export default {
       this.queryData(skiBootsRef, item.cartSkiBoots);
       this.queryData(snowboardsRef, item.cartSnowboards);
       this.queryData(bootsRef, item.cartBoots);
+    },
+    confirmOrder(item) {
+      const collectionId = item.id;
+      db.collection("ORDERS")
+        .doc(collectionId)
+        .delete()
+        .then(() => {
+          console.log("Document successfully deleted from ORDERS!");
+           this.$toasted.success('Order completed successfully!')
+        })
+        .catch((error) => {
+          console.error("Error removing document: ", error);
+        });
 
-      
+         db.collection("CART")
+        .doc(collectionId)
+        .delete()
+        .then(() => {
+          console.log("Document successfully deleted from CART!");
+        })
+        .catch((error) => {
+          console.error("Error removing document: ", error);
+        });
+      console.log(item);
     },
   },
 };
 </script>
 
-<style></style>
+<style>
+.btn-confirm {
+  margin-left: 10px;
+}
+</style>

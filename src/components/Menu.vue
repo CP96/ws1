@@ -64,7 +64,7 @@ export default {
     firebase.auth().onAuthStateChanged(
       (user) => {
         if (user) {
-          this.$toasted.success('You are logged in!');
+          this.$toasted.success("You are logged in!");
           this.userIsLoggedIn = user;
           db.collection("USERS")
             .doc(user.uid)
@@ -73,18 +73,19 @@ export default {
               if (doc.exists) {
                 const data = doc.data();
                 this.userIsAdmin = data.isAdmin;
-                if(this.userIsAdmin){
-                  this.$toasted.info('You are logged in as Admin!');
+                if (this.userIsAdmin) {
+                  this.$toasted.info("You are logged in as Admin!");
                 }
               } else {
                 // doc.data() will be undefined in this case
                 console.log("No such document!");
-               // this.$toasted.show('You are logged out!');
               }
             })
             .catch((error) => {
               console.log("Error getting document:", error);
             });
+        } else {
+          this.$toasted.show("You are not authenticated!");
         }
       },
       function (error) {
@@ -148,7 +149,6 @@ export default {
         .then(() => {
           this.userIsLoggedIn = null;
           router.go();
-          
         })
         .catch((error) => console.log(error));
     },
@@ -265,10 +265,9 @@ appears on the left side of the page.
   border: none;
   background: transparent;
 }
-#menu .pure-menu ul{
+#menu .pure-menu ul {
   margin-top: 25px;
 }
-
 
 /*
         Change color of the anchor links on hover/focus.
@@ -355,7 +354,7 @@ small screens.
   margin-top: 0.6em;
 }
 
-.button-logout{
+.button-logout {
   margin-top: 25px !important;
 }
 
